@@ -13,36 +13,6 @@ button {
 }
 
 
-.btn-pause {
-  position: fixed;
-  top: 4%;
-  right: 4%;
-}
-
-/* .btn-play {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  padding: .4em .8em .56em;
-
-  background-color:rgb(102,21,0);
-  color: white;
-  border: .1em inset rgb(76, 47, 47);
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 8vw;
-  text-shadow: 4px 4px 4px black;
-  transition: background-color .3s, border .3s;
-}
-
-.btn-play:hover {
-  background-color:rgb(246,145,29);
-  border: .16em inset rgb(76, 47, 47);
-} */
-
-
 .btn-play{
   position: fixed;
   top: 50%;

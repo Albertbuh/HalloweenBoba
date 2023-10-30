@@ -18,14 +18,11 @@ backgroundSound.muted = true;
 const lightPumpkinFactory = new LightPumpkinFactory();
 const darkPumpkinFactory = new DarkPumpkinFactory();
 const shooter = new Shooter(g);
-let disposeTimersMap = new Map();
 document.querySelector(".btn-play").firstElementChild.addEventListener("pointerdown", startGame);
 document.querySelector(".btn-sound").addEventListener("pointerdown", toggleBackgroundSound);
-document.querySelector(".btn-pause").addEventListener("pointerdown", pause);
 function startGame() {
     setTimeout(function gameProc() {
-        if (!PAUSE_FLAG)
-            play();
+        play();
         setTimeout(gameProc, 1000);
     }, 200);
     toggleBackgroundSound();
@@ -40,15 +37,7 @@ function play() {
     }
     initializePumpkinValues(pumpkin);
     addCollisionCheck(pumpkin);
-    createDisposeTimer(pumpkin, 3000);
-}
-function createDisposeTimer(obj, left) {
-    let startTime;
-    let disposeTimerId = setTimeout(() => {
-        DisposeObject(obj);
-        startTime = new Date();
-    }, left);
-    disposeTimersMap.set({ timerId: disposeTimerId, leftTime: startTime }, obj);
+    setTimeout(DisposeObject, 3000, pumpkin);
 }
 function DisposeObject(obj) {
     DomAppender.removeElement(obj.id);
@@ -86,7 +75,6 @@ function initializePumpkinValues(obj) {
         let inc = Randomizer.randInt(-5, 5);
         setInterval(function r() {
             obj.rotate(inc);
-            // setTimeout(r, 20);
         }, 20);
         if (isForward) {
             shooter.shootForward(obj);
@@ -101,13 +89,4 @@ function toggleBackgroundSound() {
     if (backgroundSound.currentTime == 0) {
         backgroundSound.play();
     }
-}
-function pause() {
-    if (!PAUSE_FLAG) {
-        shooter.pauseAllShoots();
-        for (let dt of disposeTimersMap) {
-            clearTimeout(dt[0].timerId);
-        }
-    }
-    PAUSE_FLAG = !PAUSE_FLAG;
 }

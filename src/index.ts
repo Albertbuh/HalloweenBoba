@@ -2,7 +2,6 @@ import DomAppender from "./models/DomAppender.js";
 import GameObject, { IPositioned } from "./models/GameObject.js";
 import {
   DarkPumpkinFactory,
-  LightPumpkin,
   LightPumpkinFactory,
   Pumpkin,
 } from "./models/Pumpkin.js";
@@ -30,14 +29,7 @@ const lightPumpkinFactory = new LightPumpkinFactory();
 const darkPumpkinFactory = new DarkPumpkinFactory();
 const shooter = new Shooter(g);
 
-interface TimerInfo {
-  timerId: number;
-  leftTime: number;
-}
-let disposeTimersMap: Map<TimerInfo, GameObject> = new Map<
-  TimerInfo,
-  GameObject
->();
+
 
 document.querySelector(".btn-play").firstElementChild.addEventListener(
   "pointerdown",
@@ -47,11 +39,9 @@ document.querySelector(".btn-sound").addEventListener(
   "pointerdown",
   toggleBackgroundSound,
 );
-document.querySelector(".btn-pause").addEventListener("pointerdown", pause);
 
 function startGame() {
   setTimeout(function gameProc() {
-    if(!PAUSE_FLAG)
     play();
     setTimeout(gameProc, 1000);
   }, 200);
@@ -68,21 +58,9 @@ function play() {
 
   initializePumpkinValues(pumpkin);
   addCollisionCheck(pumpkin);
-  createDisposeTimer(pumpkin, 3000);
+  setTimeout(DisposeObject, 3000, pumpkin);
 }
 
-function createDisposeTimer(obj: GameObject, left: number)
-{
-  let startTime;
-  let disposeTimerId = setTimeout(() => {
-    DisposeObject(obj);
-    startTime = new Date();
-  }, left);
-  disposeTimersMap.set(
-    { timerId: disposeTimerId, leftTime: startTime },
-    obj
-  );
-}
 
 function DisposeObject(obj: GameObject) {
   DomAppender.removeElement(obj.id);
@@ -124,7 +102,6 @@ function initializePumpkinValues(obj: GameObject) {
     let inc = Randomizer.randInt(-5, 5);
     setInterval(function r() {
       obj.rotate(inc);
-      // setTimeout(r, 20);
     }, 20);
 
     if (isForward) {
@@ -140,15 +117,5 @@ function toggleBackgroundSound() {
   if (backgroundSound.currentTime == 0) {
     backgroundSound.play();
   }
-}
-
-function pause() {
-  if(!PAUSE_FLAG) {
-    shooter.pauseAllShoots();
-    for (let dt of disposeTimersMap) {
-      clearTimeout(dt[0].timerId);
-    }
-  } 
-  PAUSE_FLAG = !PAUSE_FLAG;
 }
 

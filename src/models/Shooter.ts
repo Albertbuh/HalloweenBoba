@@ -26,7 +26,6 @@ class Shooter {
       obj.y = y0 - (v0Y * Math.sin(angle) * t - g / 2 * t * t);
       obj.x = x0 + v0X * Math.cos(angle) * t;
       t++;
-      // setTimeout(move, 20);
     }, 20);
     this.timersMap.set(obj.id, timerId);
   }
@@ -43,7 +42,6 @@ class Shooter {
       obj.y = y0 - (v0Y * Math.sin(angle) * t - g / 2 * t * t);
       obj.x = x0 - v0X * Math.cos(angle) * t;
       t++;
-      // setTimeout(move, 20);
     }, 20);
     this.timersMap.set(obj.id, timerId);
   }
