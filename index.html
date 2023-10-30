@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Document</title>
+  <link rel="stylesheet" type="" href="src/styles/index.css">
+  <link rel="stylesheet" type="" href="src/styles/trail.css">
+  <link rel="stylesheet" type="" href="src/styles/buttons.css">
+  <link rel="stylesheet" type="" href="src/styles/pumpkin.css">
+</head>
+<body>
+  <button class="btn-sound">sound</button>
+  <button class="btn-play" onpointerdown="this.remove()">
+    <span onpointerdown="this.remove()">start</span>
+  </button>
+  <button class="btn-pause">pause</button>
+  <script>
+  let dots = [];
+  let mouse = {
+        x: 0,
+        y: 0
+      };
+  const dotAmount = 30;
+
+  let Dot = function() {
+    this.x = 0;
+    this.y = 0;
+    this.node = (function(){
+      let n = document.createElement("div");
+      n.className = "trail";
+      n.style.visibility = "hidden";
+      document.body.appendChild(n);
+      return n;
+    }());
+  };
+  // The Dot.prototype.draw() method sets the position of 
+    // the object's <div> node
+  Dot.prototype.draw = function() {
+    this.node.style.left = this.x + "px";
+    this.node.style.top = this.y + "px";
+  };
+
+  // Creates the Dot objects, populates the dots array
+  for (let i = 0; i < dotAmount; i++) {
+    let d = new Dot();
+    dots.push(d);
+  }
+
+  function draw() {
+    let x = mouse.x,
+        y = mouse.y;
+    
+    // This loop is where all the 90s magic happens
+    dots.forEach(function(dot, index, dots) {
+      let nextDot = dots[index + 1] || dots[0];
+      
+      dot.x = x;
+      dot.y = y;
+      dot.draw();
+      x += (nextDot.x - dot.x) * .3;
+      y += (nextDot.y - dot.y) * .3;
+
+    });
+  }
+
+  addEventListener("pointermove", function(event) {
+    mouse.x = event.pageX;
+    mouse.y = event.pageY;
+  });
+
+  addEventListener("pointerdown", function(event) {
+    if(event.target.tagName !== "BUTTON")
+    {
+      event.preventDefault(); //no selection of images
+      let dots = document.querySelectorAll("div.trail");
+      dots.forEach(function(dot) {
+        dot.style.visibility = "visible";
+      });
+    }
+  });
+
+  addEventListener("pointerup", function(event) {
+    let dots = document.querySelectorAll("div.trail");
+    dots.forEach(function(dot) {
+      dot.style.visibility = "hidden";
+    });
+  });
+
+  // animate() calls draw() then recursively calls itself
+    // everytime the screen repaints via requestAnimationFrame().
+  async function animate() {
+    await draw();
+    requestAnimationFrame(animate);
+  }
+  
+  // And get it started by calling animate().
+  document.body.ondragstart = () => false;
+  animate();
+
+  </script>
+  <script type="module" src="built/index.js"></script>
+</body>
+</html>

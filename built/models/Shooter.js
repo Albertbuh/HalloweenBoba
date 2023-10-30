@@ -1,0 +1,56 @@
+import Randomizer from "./Randomizer.js";
+class Shooter {
+    get accel() {
+        return this._accel;
+    }
+    constructor(accel) {
+        this.timersMap = new Map();
+        this._accel = accel;
+        console.log(`shooter created with ${this.accel}`);
+    }
+    shootForward(obj) {
+        const angle = this.degToRad(Randomizer.randInt(55, 80));
+        const v0Y = obj.speedY;
+        const v0X = obj.speedX;
+        let t = 0;
+        let x0 = obj.x;
+        let y0 = obj.y;
+        let g = this._accel;
+        let timerId = setInterval(function move() {
+            obj.y = y0 - (v0Y * Math.sin(angle) * t - g / 2 * t * t);
+            obj.x = x0 + v0X * Math.cos(angle) * t;
+            t++;
+            // setTimeout(move, 20);
+        }, 20);
+        this.timersMap.set(obj.id, timerId);
+    }
+    shootBackward(obj) {
+        const angle = this.degToRad(Randomizer.randInt(55, 80));
+        const v0X = obj.speedX;
+        const v0Y = obj.speedY;
+        let t = 0;
+        let x0 = obj.x;
+        let y0 = obj.y;
+        let g = this._accel;
+        let timerId = setInterval(function move() {
+            obj.y = y0 - (v0Y * Math.sin(angle) * t - g / 2 * t * t);
+            obj.x = x0 - v0X * Math.cos(angle) * t;
+            t++;
+            // setTimeout(move, 20);
+        }, 20);
+        this.timersMap.set(obj.id, timerId);
+    }
+    stopShoot(id) {
+        clearTimeout(this.timersMap.get(id));
+        this.timersMap.delete(id);
+    }
+    pauseAllShoots() {
+        for (let t of this.timersMap) {
+            this.stopShoot(t[0]);
+        }
+    }
+    degToRad(deg) {
+        return deg * (Math.PI / 180);
+    }
+}
+export default Shooter;

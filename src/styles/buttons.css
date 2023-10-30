@@ -1,0 +1,104 @@
+button {
+  padding: 4px;
+
+  font-size: 14px;
+  color: white;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.btn-sound {
+  position: absolute;
+  top: 4%;
+  left: 4%;
+}
+
+
+.btn-pause {
+  position: fixed;
+  top: 4%;
+  right: 4%;
+}
+
+/* .btn-play {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding: .4em .8em .56em;
+
+  background-color:rgb(102,21,0);
+  color: white;
+  border: .1em inset rgb(76, 47, 47);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 8vw;
+  text-shadow: 4px 4px 4px black;
+  transition: background-color .3s, border .3s;
+}
+
+.btn-play:hover {
+  background-color:rgb(246,145,29);
+  border: .16em inset rgb(76, 47, 47);
+} */
+
+
+.btn-play{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display:inline-block;
+  margin:20px;
+  padding: 0px;
+  border-radius: 50%;
+}
+
+.btn-play span{
+  color:white;
+  font-size:10vw;
+  text-align: center;
+  text-decoration:none;
+  background-color:rgb(246,145,29);
+  display:block;
+  position:relative;
+  padding:.5em 1em;
+
+  
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-shadow: 4px 4px 4px black;
+
+  filter: dropshadow(color=#000, offx=0px, offy=1px);
+  
+  -webkit-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+  -moz-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+  box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+  
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.btn-play span:active{
+  top:1vh;
+  background-color:rgb(102,21,0);
+  
+  -webkit-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+  -moz-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3pxpx 0 #915100;
+  box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+}
+
+.btn-play:after{
+  content:"";
+  height:110%;
+  width:110%;
+  padding:4px;
+  position: absolute;
+  bottom:-10%;
+  left:-5%;
+  z-index:-1;
+  background-color:#2B1800;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}

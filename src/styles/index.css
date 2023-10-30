@@ -1,0 +1,22 @@
+body {
+  background: url("../images/background.jpg!d");
+  background-size: 100vw 100vh;
+  color: white;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+  transform: rotate;
+}
+
+@media screen and (max-width: 1600px) and (min-height: 1000px){
+  body {
+    background-size: auto 100vh;
+  }
+}
+
+div {
+  width: 0;
+  margin: 0 auto;
+
+  font-size: 10vh;
+}
