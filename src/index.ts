@@ -103,8 +103,9 @@ let somepointsSound = new Audio(`./src/music/somepoints.mp3`);
 let organSound = new Audio(`./src/music/organ.mp3`);
 let userLimitsCollection = new Set<number>();
 function updateScore(num: number) {
-  score += num;
-  scoreField.firstElementChild.textContent = Math.max(score, 0).toString();
+  score = Math.max(score + num, 0);
+  scoreField.firstElementChild.textContent = score.toString();
+  
   if(score % 24 == 0)
     somepointsSound.play();
   if(score % 100 == 0 && !userLimitsCollection.has(score)) {
