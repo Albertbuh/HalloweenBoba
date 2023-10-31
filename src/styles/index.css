@@ -9,7 +9,8 @@ body {
 
 @media screen and (max-width: 1600px) and (min-height: 400px){
   body {
-    background-size: auto 100vh;
+    background-size: contain;
+    background: url("../images/mobile_background.jpg") ;
   }
 }
 
