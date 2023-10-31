@@ -8,12 +8,10 @@ document.body.style.width = `${windowWidth}px`;
 document.body.style.height = `${windowHeight}px`;
 const v0 = windowWidth > 800 ? 10 : 7;
 const g = windowWidth > 800 ? 0.8 : 0.5;
+const screenSizeK = windowWidth > 800 ? 1 : 2;
 let score = 0;
 let scoreField = document.querySelector(".score");
 scoreField.querySelector("span").textContent = score.toString();
-let screenSizeK = 1;
-if (windowWidth < 800)
-    screenSizeK = 2;
 //flag that checks if user press mouse button to cut objects
 let isButtonPressed = false;
 document.addEventListener("pointerdown", () => isButtonPressed = true);
@@ -24,22 +22,37 @@ const lightPumpkinFactory = new LightPumpkinFactory();
 const darkPumpkinFactory = new DarkPumpkinFactory();
 const shooter = new Shooter(g);
 document.querySelector(".btn-play").firstElementChild.addEventListener("pointerdown", startGame);
-document.querySelector(".btn-sound").addEventListener("pointerdown", toggleBackgroundSound);
+document.querySelector(".btn-sound").firstElementChild.addEventListener("pointerdown", toggleBackgroundSound);
+document.body.onpointerdown = (event) => console.log(event.target);
+let delayOfNewGameIteration = 1000;
+let k = 0;
 function startGame() {
     setTimeout(function gameProc() {
         play();
-        setTimeout(gameProc, 1000);
+        setTimeout(gameProc, delayOfNewGameIteration);
+        k++;
+        if (k == 7) {
+            if (delayOfNewGameIteration > 400)
+                delayOfNewGameIteration -= 50;
+            k = 0;
+        }
     }, 200);
+    playBackgroundSound(backgroundSound);
     toggleBackgroundSound();
 }
+let pk = 0.9;
 function play() {
     let pumpkin;
-    if (Math.random() < 0.7) {
+    if (Math.random() < pk) {
         pumpkin = lightPumpkinFactory.create();
     }
     else {
         pumpkin = darkPumpkinFactory.create();
     }
+    if (pk > 0.55) {
+        pk -= 0.02;
+    }
+    console.log(pk);
     initializePumpkinValues(pumpkin);
     addCollisionCheck(pumpkin);
     setTimeout(DisposeObject, 3000, pumpkin);
@@ -99,7 +112,12 @@ function initializePumpkinValues(obj) {
 }
 function toggleBackgroundSound() {
     backgroundSound.muted = !backgroundSound.muted;
-    if (backgroundSound.currentTime == 0) {
-        backgroundSound.play();
-    }
+    document.querySelector(".btn-sound").classList.toggle("mute");
+}
+function playBackgroundSound(sound) {
+    sound.play();
+    let duration = sound.duration;
+    setInterval(function bpl() {
+        sound.play();
+    }, duration * 60);
 }

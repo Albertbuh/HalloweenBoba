@@ -40,26 +40,41 @@ document.querySelector(".btn-play").firstElementChild.addEventListener(
   "pointerdown",
   startGame,
 );
-document.querySelector(".btn-sound").addEventListener(
+document.querySelector(".btn-sound").firstElementChild.addEventListener(
   "pointerdown",
-  toggleBackgroundSound,
+  toggleBackgroundSound
 );
 
+
+let delayOfNewGameIteration = 1000;
+let k = 0;
 function startGame() {
   setTimeout(function gameProc() {
     play();
-    setTimeout(gameProc, 1000);
+    setTimeout(gameProc, delayOfNewGameIteration);
+    k++;
+    if(k == 7) {
+      if(delayOfNewGameIteration > 400)
+        delayOfNewGameIteration -= 50;
+      k = 0;
+    }
   }, 200);
+  playBackgroundSound(backgroundSound);
   toggleBackgroundSound();
 }
 
+let pk = 0.9;
 function play() {
   let pumpkin: Pumpkin;
-  if (Math.random() < 0.7) {
+  if (Math.random() < pk) {
     pumpkin = lightPumpkinFactory.create();
   } else {
     pumpkin = darkPumpkinFactory.create();
   }
+  if(pk > 0.55) {
+    pk -= 0.02;
+  }
+  console.log(pk);
 
   initializePumpkinValues(pumpkin);
   addCollisionCheck(pumpkin);
@@ -127,7 +142,13 @@ function initializePumpkinValues(obj: GameObject) {
 
 function toggleBackgroundSound() {
   backgroundSound.muted = !backgroundSound.muted;
-  if (backgroundSound.currentTime == 0) {
-    backgroundSound.play();
-  }
+  document.querySelector(".btn-sound").classList.toggle("mute");
+}
+
+function playBackgroundSound(sound: HTMLAudioElement) {
+  sound.play();
+  let duration = sound.duration;
+  setInterval(function bpl() {
+    sound.play();
+  }, duration * 60);
 }

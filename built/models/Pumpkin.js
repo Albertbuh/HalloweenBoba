@@ -85,14 +85,9 @@ class DarkPumpkin extends Pumpkin {
         }
         return collided;
     }
-    tryPlaySound() {
-        if (!DarkPumpkin.isPlaying) {
-            this.basicSoundEffect.play();
-            DarkPumpkin.isPlaying = true;
-            this.basicSoundEffect.addEventListener("ended", () => {
-                DarkPumpkin.isPlaying = false;
-            });
-        }
+    static countBooLimitWidth() {
+        let winW = window.innerWidth;
+        return winW > 800 ? winW * 3 : winW * 6;
     }
     showBooAnimation() {
         let img = document.createElement("img");
@@ -105,7 +100,7 @@ class DarkPumpkin extends Pumpkin {
             let height = img.clientHeight;
             img.style.width = `${width + 40}px`;
             img.style.height = `${height + 40}px`;
-            if (width <= window.innerWidth * 3)
+            if (width <= DarkPumpkin.countBooLimitWidth())
                 setTimeout(resize, 20);
             else
                 img.remove();
