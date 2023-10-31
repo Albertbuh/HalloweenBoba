@@ -76,7 +76,7 @@ class Pumpkin extends GameObject implements IScorable {
 
 class LightPumpkin extends Pumpkin {
   private soundEffect = new Audio("./src/music/lpumpkin.mp3");
-  public score = 3;
+  public score = 2;
   
   checkCollision(pos: IPositioned): boolean {
     let collided = super.checkCollision(pos);

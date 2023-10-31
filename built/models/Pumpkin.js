@@ -54,7 +54,7 @@ class LightPumpkin extends Pumpkin {
     constructor() {
         super(...arguments);
         this.soundEffect = new Audio("./src/music/lpumpkin.mp3");
-        this.score = 3;
+        this.score = 2;
     }
     checkCollision(pos) {
         let collided = super.checkCollision(pos);
