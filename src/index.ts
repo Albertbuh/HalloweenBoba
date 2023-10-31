@@ -38,8 +38,15 @@ const shooter = new Shooter(g);
 
 document.querySelector(".btn-play").firstElementChild.addEventListener(
   "pointerdown",
-  startGame,
+   function() {
+    setTimeout(() => {
+      this.remove();
+      startGame();
+    }, 500);
+  }
 );
+
+
 document.querySelector(".btn-sound").firstElementChild.addEventListener(
   "pointerdown",
   toggleBackgroundSound
@@ -60,7 +67,7 @@ function startGame() {
     }
   }, 200);
   // playBackgroundSound(backgroundSound);
-  toggleBackgroundSound();
+  toggleBackgroundSound();//fat ass
 }
 
 let pk = 0.9;

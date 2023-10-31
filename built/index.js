@@ -21,7 +21,12 @@ backgroundSound.muted = true;
 const lightPumpkinFactory = new LightPumpkinFactory();
 const darkPumpkinFactory = new DarkPumpkinFactory();
 const shooter = new Shooter(g);
-document.querySelector(".btn-play").firstElementChild.addEventListener("pointerdown", startGame);
+document.querySelector(".btn-play").firstElementChild.addEventListener("pointerdown", function () {
+    setTimeout(() => {
+        this.remove();
+        startGame();
+    }, 500);
+});
 document.querySelector(".btn-sound").firstElementChild.addEventListener("pointerdown", toggleBackgroundSound);
 let delayOfNewGameIteration = 1000;
 let k = 0;
@@ -37,7 +42,7 @@ function startGame() {
         }
     }, 200);
     // playBackgroundSound(backgroundSound);
-    toggleBackgroundSound();
+    toggleBackgroundSound(); //fat ass
 }
 let pk = 0.9;
 function play() {
