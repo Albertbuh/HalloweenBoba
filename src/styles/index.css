@@ -9,8 +9,8 @@ body {
 
 @media screen and (max-width: 1000px) and (min-height: 400px){
   body {
-    background-size: contain;
     background: url("../images/mobile_background.jpg") ;
+    background-size: contain;
   }
 }
 
