@@ -33,7 +33,8 @@ let isButtonPressed: boolean = false;
 document.addEventListener("pointerdown", () => isButtonPressed = true);
 document.addEventListener("pointerup", () => isButtonPressed = false);
 
-let backgroundSound = new Audio("./src/music/bg1.mp3");
+let ind = windowWidth > 800 ? 1 : 3;
+let backgroundSound = new Audio(`./src/music/bg${ind}.mp3`);
 backgroundSound.muted = true;
 
 const lightPumpkinFactory = new LightPumpkinFactory();
@@ -70,7 +71,7 @@ function startGame() {
       k = 0;
     }
   }, 200);
-  // playBackgroundSound(backgroundSound);
+  
   toggleBackgroundSound();//fat ass
 }
 
@@ -100,7 +101,7 @@ function DisposeObject(obj: GameObject) {
 
 function updateScore(num: number) {
   score += num;
-  scoreField.firstElementChild.textContent = score.toString();
+  scoreField.firstElementChild.textContent = Math.max(score, 0).toString();
 }
 
 function addCollisionCheck(obj: GameObject) {
@@ -165,3 +166,4 @@ function playBackgroundSound(sound: HTMLAudioElement) {
     sound.play();
   }, duration * 60);
 }
+

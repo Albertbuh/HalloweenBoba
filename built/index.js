@@ -19,7 +19,8 @@ scoreField.querySelector("span").textContent = score.toString();
 let isButtonPressed = false;
 document.addEventListener("pointerdown", () => isButtonPressed = true);
 document.addEventListener("pointerup", () => isButtonPressed = false);
-let backgroundSound = new Audio("./src/music/bg1.mp3");
+let ind = windowWidth > 800 ? 1 : 3;
+let backgroundSound = new Audio(`./src/music/bg${ind}.mp3`);
 backgroundSound.muted = true;
 const lightPumpkinFactory = new LightPumpkinFactory();
 const darkPumpkinFactory = new DarkPumpkinFactory();
@@ -44,7 +45,6 @@ function startGame() {
             k = 0;
         }
     }, 200);
-    // playBackgroundSound(backgroundSound);
     toggleBackgroundSound(); //fat ass
 }
 let pk = 0.9;
@@ -71,7 +71,7 @@ function DisposeObject(obj) {
 }
 function updateScore(num) {
     score += num;
-    scoreField.firstElementChild.textContent = score.toString();
+    scoreField.firstElementChild.textContent = Math.max(score, 0).toString();
 }
 function addCollisionCheck(obj) {
     document.addEventListener("pointermove", function checkCol(event) {
