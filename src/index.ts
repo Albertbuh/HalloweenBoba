@@ -66,7 +66,7 @@ function startGame() {
     setTimeout(gameProc, delayOfNewGameIteration);
     k++;
     if(k == 7) {
-      if(delayOfNewGameIteration > 400)
+      if(delayOfNewGameIteration > 450)
         delayOfNewGameIteration -= 50;
       k = 0;
     }
