@@ -83,7 +83,7 @@ function play() {
   } else {
     pumpkin = darkPumpkinFactory.create();
   }
-  if(pk > 0.55) {
+  if(pk > 0.75 && k > 7) {
     pk -= 0.02;
   }
   console.log(pk);

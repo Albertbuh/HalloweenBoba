@@ -40,8 +40,8 @@ function startGame() {
         setTimeout(gameProc, delayOfNewGameIteration);
         k++;
         if (k == 7) {
-            if (delayOfNewGameIteration > 450)
-                delayOfNewGameIteration -= 50;
+            if (delayOfNewGameIteration > 500)
+                delayOfNewGameIteration -= 25;
             k = 0;
         }
     }, 200);
@@ -56,7 +56,7 @@ function play() {
     else {
         pumpkin = darkPumpkinFactory.create();
     }
-    if (pk > 0.55) {
+    if (pk > 0.75 && k > 7) {
         pk -= 0.02;
     }
     console.log(pk);
