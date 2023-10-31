@@ -8,12 +8,15 @@
   <link rel="stylesheet" type="" href="src/styles/trail.css">
   <link rel="stylesheet" type="" href="src/styles/buttons.css">
   <link rel="stylesheet" type="" href="src/styles/pumpkin.css">
+  <link rel="stylesheet" type="" href="src/styles/score.css">
 </head>
 <body>
   <button class="btn-sound">sound</button>
   <button class="btn-play" onpointerdown="this.remove()">
     <span onpointerdown="this.remove()">start</span>
   </button>
+  <div class="score">Score: <span></span></div>
+  
   <script>
   let dots = [];
   let mouse = {

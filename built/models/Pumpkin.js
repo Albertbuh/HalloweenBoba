@@ -30,6 +30,7 @@ class Pumpkin extends GameObject {
         this.width = width;
         this.height = height;
         this.imageUrl = imageUrl;
+        this.score = 1;
     }
     rotate(inc = 1) {
         if (this.domView) {
@@ -53,6 +54,7 @@ class LightPumpkin extends Pumpkin {
     constructor() {
         super(...arguments);
         this.soundEffect = new Audio("./src/music/lpumpkin.mp3");
+        this.score = 3;
     }
     checkCollision(pos) {
         let collided = super.checkCollision(pos);
@@ -67,13 +69,17 @@ class LightPumpkin extends Pumpkin {
 class DarkPumpkin extends Pumpkin {
     constructor() {
         super(...arguments);
-        this.soundEffect = new Audio("./src/music/dpumpkin.wav");
+        this.basicSoundEffect = new Audio("./src/music/dpumpkin.wav");
+        this.screamSoundEffect = new Audio("./src/music/scream.mp3");
+        this.score = -4;
     }
     checkCollision(pos) {
         let collided = super.checkCollision(pos);
         if (collided) {
-            // this.tryPlaySound();
-            this.soundEffect.play();
+            DarkPumpkin.cuttedAmount++;
+            if (DarkPumpkin.cuttedAmount % 5 == 0)
+                this.screamSoundEffect.play();
+            this.basicSoundEffect.play();
             this.domView.element.hidden = true;
             this.showBooAnimation();
         }
@@ -81,9 +87,9 @@ class DarkPumpkin extends Pumpkin {
     }
     tryPlaySound() {
         if (!DarkPumpkin.isPlaying) {
-            this.soundEffect.play();
+            this.basicSoundEffect.play();
             DarkPumpkin.isPlaying = true;
-            this.soundEffect.addEventListener("ended", () => {
+            this.basicSoundEffect.addEventListener("ended", () => {
                 DarkPumpkin.isPlaying = false;
             });
         }
@@ -107,6 +113,7 @@ class DarkPumpkin extends Pumpkin {
     }
 }
 DarkPumpkin.isPlaying = false;
+DarkPumpkin.cuttedAmount = 0;
 class LightPumpkinFactory {
     create() {
         return new LightPumpkin(0, 0, 0, 0, "./src/images/lpumpkin.png");

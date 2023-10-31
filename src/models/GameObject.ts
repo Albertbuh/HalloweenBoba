@@ -17,8 +17,13 @@ interface IDrawable {
   domView: DomViewer|null;
 }
 
+interface IScorable {
+  score: number;
+}
+
 abstract class GameObject implements IPositioned, IMovable, IDrawable {
   protected static freeId: number = 0;
+  
   
   private _id: number;
   public get id(): number {
@@ -49,5 +54,5 @@ abstract class GameObject implements IPositioned, IMovable, IDrawable {
   }
 }
 
-export {IPositioned, IMovable, IDrawable};
+export {IPositioned, IMovable, IDrawable, IScorable};
 export default GameObject;

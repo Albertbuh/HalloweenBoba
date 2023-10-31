@@ -1,9 +1,9 @@
 import DomViewer from "./DomViewer.js";
 import Factory from "./Factory.js";
-import GameObject, { IPositioned } from "./GameObject.js";
+import GameObject, { IPositioned, IScorable } from "./GameObject.js";
 import Randomizer from "./Randomizer.js";
 
-class Pumpkin extends GameObject {
+class Pumpkin extends GameObject implements IScorable {
   domView: DomViewer;
   //id:number;
   speedX: number = 0;
@@ -34,7 +34,8 @@ class Pumpkin extends GameObject {
   width: number;
   height: number;
   imageUrl: string | null;
-
+  score: number;
+  
   constructor(
     x: number,
     y: number,
@@ -48,6 +49,8 @@ class Pumpkin extends GameObject {
     this.width = width;
     this.height = height;
     this.imageUrl = imageUrl;
+
+    this.score = 1;
   }
 
   rotate(inc: number = 1) {
@@ -73,7 +76,7 @@ class Pumpkin extends GameObject {
 
 class LightPumpkin extends Pumpkin {
   private soundEffect = new Audio("./src/music/lpumpkin.mp3");
-
+  public score = 3;
   
   checkCollision(pos: IPositioned): boolean {
     let collided = super.checkCollision(pos);
@@ -90,14 +93,19 @@ class LightPumpkin extends Pumpkin {
 }
 
 class DarkPumpkin extends Pumpkin {
-  private soundEffect = new Audio("./src/music/dpumpkin.wav");
+  private basicSoundEffect = new Audio("./src/music/dpumpkin.wav");
+  private screamSoundEffect = new Audio("./src/music/scream.mp3");
   private static isPlaying = false;
+  public score = -4;
+  private static cuttedAmount = 0;
 
   checkCollision(pos: IPositioned): boolean {
     let collided = super.checkCollision(pos);
     if (collided) {
-      // this.tryPlaySound();
-      this.soundEffect.play();
+      DarkPumpkin.cuttedAmount++;
+      if(DarkPumpkin.cuttedAmount % 5 == 0)
+        this.screamSoundEffect.play();
+      this.basicSoundEffect.play();
       this.domView.element.hidden = true;
       this.showBooAnimation();
     }
@@ -106,9 +114,9 @@ class DarkPumpkin extends Pumpkin {
 
   tryPlaySound() {
     if(!DarkPumpkin.isPlaying) {
-      this.soundEffect.play();
+      this.basicSoundEffect.play();
       DarkPumpkin.isPlaying = true;
-      this.soundEffect.addEventListener("ended", () => {
+      this.basicSoundEffect.addEventListener("ended", () => {
         DarkPumpkin.isPlaying = false;
       });
     }
