@@ -14,6 +14,10 @@ let windowHeight = window.innerHeight;
 document.body.style.width = `${windowWidth}px`;
 document.body.style.height = `${windowHeight}px`;
 
+window.onload = () => {
+  document.querySelector(".preload-container").remove();
+};
+
 
 const v0 = windowWidth > 800 ? 10 : 7;
 const g = windowWidth > 800 ? 0.8 : 0.5;
