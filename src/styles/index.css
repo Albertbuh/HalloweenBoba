@@ -7,7 +7,7 @@ body {
   touch-action: none;
 }
 
-@media screen and (max-width: 1600px) and (min-height: 1000px){
+@media screen and (max-width: 1600px) and (min-height: 400px){
   body {
     background-size: auto 100vh;
   }

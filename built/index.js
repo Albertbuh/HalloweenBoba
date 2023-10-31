@@ -23,7 +23,6 @@ const darkPumpkinFactory = new DarkPumpkinFactory();
 const shooter = new Shooter(g);
 document.querySelector(".btn-play").firstElementChild.addEventListener("pointerdown", startGame);
 document.querySelector(".btn-sound").firstElementChild.addEventListener("pointerdown", toggleBackgroundSound);
-document.body.onpointerdown = (event) => console.log(event.target);
 let delayOfNewGameIteration = 1000;
 let k = 0;
 function startGame() {
@@ -37,7 +36,7 @@ function startGame() {
             k = 0;
         }
     }, 200);
-    playBackgroundSound(backgroundSound);
+    // playBackgroundSound(backgroundSound);
     toggleBackgroundSound();
 }
 let pk = 0.9;
@@ -112,6 +111,8 @@ function initializePumpkinValues(obj) {
 }
 function toggleBackgroundSound() {
     backgroundSound.muted = !backgroundSound.muted;
+    if (backgroundSound.currentTime == 0)
+        playBackgroundSound(backgroundSound);
     document.querySelector(".btn-sound").classList.toggle("mute");
 }
 function playBackgroundSound(sound) {

@@ -59,7 +59,7 @@ function startGame() {
       k = 0;
     }
   }, 200);
-  playBackgroundSound(backgroundSound);
+  // playBackgroundSound(backgroundSound);
   toggleBackgroundSound();
 }
 
@@ -142,6 +142,8 @@ function initializePumpkinValues(obj: GameObject) {
 
 function toggleBackgroundSound() {
   backgroundSound.muted = !backgroundSound.muted;
+  if(backgroundSound.currentTime == 0)
+    playBackgroundSound(backgroundSound);
   document.querySelector(".btn-sound").classList.toggle("mute");
 }
 

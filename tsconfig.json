@@ -4,5 +4,6 @@
     "allowJs": true,
     "target": "es6",
     "baseUrl": "./src",
-  }
+  },
+  "include": ["./src/*"],
 }
