@@ -99,7 +99,6 @@ function DisposeObject(obj: GameObject) {
   updateScore(-1);
 }
 
-score = 95;
 let somepointsSound = new Audio(`./src/music/somepoints.mp3`);
 let organSound = new Audio(`./src/music/organ.mp3`);
 let userLimitsCollection = new Set<number>();
