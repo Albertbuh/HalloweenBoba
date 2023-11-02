@@ -65,10 +65,9 @@ function startGame() {
     play();
     setTimeout(gameProc, delayOfNewGameIteration);
     k++;
-    if(k == 7) {
+    if(k % 7 == 0) {
       if(delayOfNewGameIteration > 450)
         delayOfNewGameIteration -= 25;
-      k = 0;
     }
   }, 200);
   
@@ -86,7 +85,7 @@ function play() {
   if(pk > 0.65 && k > 5) {
     pk -= 0.02;
   }
-  console.log(pk);
+  // console.log(pk);
 
   initializePumpkinValues(pumpkin);
   addCollisionCheck(pumpkin);

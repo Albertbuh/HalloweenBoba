@@ -71,7 +71,7 @@ class DarkPumpkin extends Pumpkin {
         super(...arguments);
         this.basicSoundEffect = new Audio("./src/music/dpumpkin.wav");
         this.screamSoundEffect = new Audio("./src/music/scream.mp3");
-        this.score = -4;
+        this.score = -5;
     }
     checkCollision(pos) {
         let collided = super.checkCollision(pos);

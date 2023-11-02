@@ -96,7 +96,7 @@ class DarkPumpkin extends Pumpkin {
   private basicSoundEffect = new Audio("./src/music/dpumpkin.wav");
   private screamSoundEffect = new Audio("./src/music/scream.mp3");
   private static isPlaying = false;
-  public score = -4;
+  public score = -5;
   private static cuttedAmount = 0;
 
 

@@ -9,7 +9,7 @@ class Shooter {
 
   constructor(accel: number) {
     this._accel = accel;
-    console.log(`shooter created with ${this.accel}`);
+    // console.log(`shooter created with ${this.accel}`);
   }
 
   

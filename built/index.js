@@ -39,10 +39,9 @@ function startGame() {
         play();
         setTimeout(gameProc, delayOfNewGameIteration);
         k++;
-        if (k == 7) {
+        if (k % 7 == 0) {
             if (delayOfNewGameIteration > 450)
                 delayOfNewGameIteration -= 25;
-            k = 0;
         }
     }, 200);
     toggleBackgroundSound(); //fat ass
@@ -56,7 +55,7 @@ function play() {
     else {
         pumpkin = darkPumpkinFactory.create();
     }
-    if (pk > 0.65 && k > 7) {
+    if (pk > 0.65 && k > 5) {
         pk -= 0.02;
     }
     console.log(pk);
